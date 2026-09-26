@@ -1,0 +1,17 @@
+
+npm install @nestjs/typeorm typeorm mysql2 class-validator class-transformer @nestjs/config
+
+@nestjs/typeorm y typeorm: Son los módulos fundamentales para la conexión y gestión de la base de datos MySQL mediante TypeORM.
+mysql2: Es el controlador específico necesario para que TypeORM se comunique con la base de datos MySQL, la cual deberá ejecutarse mediante Docker Compose.   
+class-validator y class-transformer: Permiten crear los DTOs y aplicar las validaciones obligatorias para el CRUD de medicamentos, categorías y empleados.   
+@nestjs/config: Aunque no se menciona explícitamente en el documento, es la herramienta estándar en NestJS para leer de forma segura las variables de entorno (como el usuario y la contraseña de la base de datos) desde un archivo .env.
+
+CRUD COMPLETO DE CADA ENTIDAD
+nest g resource medicamentos
+nest g resource categorias
+nest g resource empleados
+
+PARA CREAR CADA RESPONSABILDIAD POR SEPARADO (asi con cada entidad)
+nest g module medicamentos
+nest g controller medicamentos
+nest g service medicamentos
