@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { ConflictException } from '@nestjs/common';
 import { Empleado } from './entities/empleado.entity';
 import { CreateEmpleadoDto } from './dto/create-empleado.dto';
 import { UpdateEmpleadoDto } from './dto/update-empleado.dto';
@@ -32,23 +33,32 @@ export class EmpleadosService {
 
   async update(id: number, updateEmpleadoDto: UpdateEmpleadoDto) {
     const empleado = await this.findOne(id);
-    if ( updateEmpleadoDto.email || updateEmpleadoDto.dni) {
+
+    const condicionesWhere = [];
+
+    if (updateEmpleadoDto.email) {
+      condicionesWhere.push({ email: updateEmpleadoDto.email });
+    }
+    
+    if (updateEmpleadoDto.dni) {
+      condicionesWhere.push({ dni: updateEmpleadoDto.dni });
+    }
+
+    if (condicionesWhere.length > 0) {
       const duplicado = await this.empleadoRepository.findOne({
-        where: [
-          { email: updateEmpleadoDto.email },
-          { dni: updateEmpleadoDto.dni }
-        ]
+        where: condicionesWhere,
       });
 
       if (duplicado && duplicado.id !== id) {
-        if (duplicado.email === updateEmpleadoDto.email) {
-          throw new Error(`El email ${updateEmpleadoDto.email} ya está en uso por otro empleado`);
+        if (updateEmpleadoDto.email && duplicado.email === updateEmpleadoDto.email) {
+          throw new ConflictException('El email ingresado ya pertenece a otro empleado.');
         }
-        if (duplicado.dni === updateEmpleadoDto.dni) {
-          throw new Error(`El DNI ${updateEmpleadoDto.dni} ya está en uso por otro empleado`);
+        if (updateEmpleadoDto.dni && duplicado.dni === updateEmpleadoDto.dni) {
+          throw new ConflictException('El DNI ingresado ya pertenece a otro empleado.');
         }
       }
     }
+
     this.empleadoRepository.merge(empleado, updateEmpleadoDto);
     return await this.empleadoRepository.save(empleado);
   }
