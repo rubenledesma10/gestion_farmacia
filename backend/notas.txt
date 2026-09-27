@@ -23,3 +23,6 @@ SERVICIO
 usamos async porque le decimos basicamente que esperemos que la bd de datos responda y despues devolve el reusltado.
 el acceso a la bd tardo, por lo tanto si no usamos un async devuelve una promesa (promise)
 No usamos async si no operamos con la bd
+
+DTO
+la funcion PartialType clona todas las propiedas y validaciones que que armamos en el dto para crear, pero las convierte en todas opciones
