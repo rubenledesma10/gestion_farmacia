@@ -8,7 +8,7 @@ async function bootstrap() {
   // Enciende la validación global para todos los endpoints
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true, // Elimina campos basura que el frontend envíe de más
+      whitelist: true, // Elimina campos basura que el frontend envíe de más, ejemplo que no se pueda editar el id
       forbidNonWhitelisted: true, // Lanza un error si envían campos no definidos en el DTO
     }),
   );

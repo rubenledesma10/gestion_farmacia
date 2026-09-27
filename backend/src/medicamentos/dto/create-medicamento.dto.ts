@@ -17,4 +17,8 @@ export class CreateMedicamentoDto {
     @Min(0, { message: 'El stock debe ser un número positivo' })
     stock: number;
 
+    @IsNumber()
+    @IsNotEmpty({ message: 'El id de la categoría es obligatorio' })
+    categoriaId: number;
+
 }
