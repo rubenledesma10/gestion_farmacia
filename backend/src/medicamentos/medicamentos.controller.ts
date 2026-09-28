@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
 import { MedicamentosService } from './medicamentos.service';
 import { CreateMedicamentoDto } from './dto/create-medicamento.dto';
 import { UpdateMedicamentoDto } from './dto/update-medicamento.dto';
@@ -18,17 +18,18 @@ export class MedicamentosController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.medicamentosService.findOne(+id);
+  //usamos partesintpipe para que asegurar que el id que viaja en la url como texto se convierta en numero
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.medicamentosService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMedicamentoDto: UpdateMedicamentoDto) {
-    return this.medicamentosService.update(+id, updateMedicamentoDto);
+  update(@Param('id', ParseIntPipe) id: number, @Body() updateMedicamentoDto: UpdateMedicamentoDto) {
+    return this.medicamentosService.update(id, updateMedicamentoDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.medicamentosService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.medicamentosService.remove(id);
   }
 }
