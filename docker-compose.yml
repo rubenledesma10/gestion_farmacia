@@ -1,0 +1,49 @@
+
+services:
+  # 1. Base de Datos (MySQL)
+  db:
+    image: mysql:8.0
+    container_name: farmacia_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: farmacia
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql # Persiste los datos aunque borres el contenedor
+
+  # 2. Backend (NestJS)
+  backend:
+    image: node:20-alpine
+    container_name: farmacia_backend
+    working_dir: /app
+    volumes:
+      - ./backend:/app # Refleja tu código local en el contenedor
+    ports:
+      - "3000:3000"
+    command: sh -c "npm install && npm run start:dev"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+      - DB_DATABASE=farmacia
+
+  # 3. Frontend (React / Vite)
+  frontend:
+    image: node:20-alpine
+    container_name: farmacia_frontend
+    working_dir: /app
+    volumes:
+      - ./frontend:/app # Refleja tu código local en el contenedor
+    ports:
+      - "5173:5173"
+    # El "-- --host" es obligatorio en Vite para que exponga el puerto fuera del contenedor
+    command: sh -c "npm install && npm run dev -- --host" 
+    depends_on:
+      - backend
+
+volumes:
+  db_data:

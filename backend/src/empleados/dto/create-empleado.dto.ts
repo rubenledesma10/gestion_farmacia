@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsOptional, IsEmail } from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional, IsEmail, IsDateString } from 'class-validator';
 export class CreateEmpleadoDto {
     @IsString()
     @IsNotEmpty({ message: 'El nombre del empleado es obligatorio' })
@@ -25,7 +25,7 @@ export class CreateEmpleadoDto {
     @IsNotEmpty()
     cargo: string;
 
-    @IsString()
-    @IsNotEmpty()
-    fechaIngreso: Date;
+    @IsDateString({}, { message: 'La fecha de ingreso debe tener un formato válido (YYYY-MM-DD)' })
+    @IsNotEmpty({ message: 'La fecha de ingreso es obligatoria' })
+    fechaIngreso: string;
 }

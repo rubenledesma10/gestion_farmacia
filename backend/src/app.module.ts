@@ -18,13 +18,13 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     // telemetry, alarms, and more — out of the box. Sign up at https://observe.nestjs.com
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'root',
-      database: 'farmacia',
+      host: process.env.DB_HOST || 'localhost', 
+      port: parseInt(process.env.DB_PORT || '3306', 10),
+      username: process.env.DB_USERNAME || 'root',
+      password: process.env.DB_PASSWORD || '', 
+      database: process.env.DB_DATABASE || 'farmacia',
       entities: [Medicamento, Categoria, Empleado],
-      synchronize: true, //autocrea y actualiza las tablas en la bd
+      synchronize: true,
     }),
     MedicamentosModule,
     CategoriasModule,
