@@ -1,4 +1,6 @@
 
+nest new [nombre] para inciar el proyecto en nest
+
 npm install @nestjs/typeorm typeorm mysql2 class-validator class-transformer @nestjs/config
 
 @nestjs/typeorm y typeorm: Son los módulos fundamentales para la conexión y gestión de la base de datos MySQL mediante TypeORM.
@@ -15,3 +17,12 @@ PARA CREAR CADA RESPONSABILDIAD POR SEPARADO (asi con cada entidad)
 nest g module medicamentos
 nest g controller medicamentos
 nest g service medicamentos
+
+
+SERVICIO
+usamos async porque le decimos basicamente que esperemos que la bd de datos responda y despues devolve el reusltado.
+el acceso a la bd tardo, por lo tanto si no usamos un async devuelve una promesa (promise)
+No usamos async si no operamos con la bd
+
+DTO
+la funcion PartialType clona todas las propiedas y validaciones que que armamos en el dto para crear, pero las convierte en todas opciones
