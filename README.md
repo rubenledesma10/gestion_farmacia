@@ -136,7 +136,7 @@ con el `docker-compose.yml`:
 | Variable | Default |
 |----------|---------|
 | `DB_HOST` | `localhost` |
-| `DB_PORT` | `3305` |
+| `DB_PORT` | `3307` |
 | `DB_USERNAME` | `root` |
 | `DB_PASSWORD` | `root` |
 | `DB_DATABASE` | `farmacia` |
@@ -172,7 +172,7 @@ npm run dev
 docker compose up
 ```
 
-> **Atención:** el `docker-compose.yml` define `DB_PORT=3305` para el backend, que es el puerto publicado en el host
+> **Atención:** el `docker-compose.yml` define `DB_PORT=3307` para el backend, que es el puerto publicado en el host
 . Dentro de la red de Docker MySQL escucha en `3306`; si el backend no conecta, cambiá `DB_PORT` a `3306` en el serv
 icio `backend`. Además, `depends_on` no espera a que MySQL esté listo, por lo que el backend puede fallar en el prim
 er intento; reiniciarlo lo resuelve.
@@ -189,7 +189,7 @@ Una vez iniciados los servicios:
 |----------|-----|
 | Frontend | http://localhost:5173 |
 | Backend | http://localhost:3000 |
-| MySQL | localhost:3305 |
+| MySQL | localhost:3307 |
 
 ## ⚠️ Limitaciones conocidas
 
@@ -218,6 +218,11 @@ main
 ```
 
 Se utilizaron Pull Requests para integrar funcionalidades y mantener la estabilidad del proyecto.
+
+## 📄 Documentación en Postman
+
+[Haz click aquí para ver la documentación](https://documenter.getpostman.com/view/31369461/2sBYB4KSHN)
+
 
 ## 📄 Licencia
 
