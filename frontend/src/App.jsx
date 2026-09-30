@@ -6,11 +6,19 @@ import Box from '@mui/material/Box'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import MedicamentosPage from './features/medicamentos/MedicamentosPage'
 import CategoriasPage from './features/categorias/CategoriasPage'
+import EmpleadosPage from './features/empleados/EmpleadosPage'
 
 const theme = createTheme()
 
+const pages = {
+  medicamentos: MedicamentosPage,
+  categorias: CategoriasPage,
+  empleados: EmpleadosPage,
+}
+
 function App() {
   const [tab, setTab] = useState('medicamentos')
+  const CurrentPage = pages[tab]
 
   return (
     <ThemeProvider theme={theme}>
@@ -19,9 +27,10 @@ function App() {
         <Tabs value={tab} onChange={(_event, value) => setTab(value)}>
           <Tab label="Medicamentos" value="medicamentos" />
           <Tab label="Categorías" value="categorias" />
+          <Tab label="Empleados" value="empleados" />
         </Tabs>
       </Box>
-      {tab === 'medicamentos' ? <MedicamentosPage /> : <CategoriasPage />}
+      <CurrentPage />
     </ThemeProvider>
   )
 }
