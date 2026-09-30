@@ -147,7 +147,8 @@ export default function MedicamentoFormDialog({ medicamento, categorias, onClose
               value={form.categoriaId}
               onChange={handleChange('categoriaId')}
               error={Boolean(errors.categoriaId)}
-              helperText={errors.categoriaId}
+              helperText={errors.categoriaId || (categorias.length === 0 ? 'Primero creá una categoría en la pestaña Categorías' : undefined)}
+              disabled={categorias.length === 0}
               fullWidth
             >
               {categorias.map((categoria) => (
